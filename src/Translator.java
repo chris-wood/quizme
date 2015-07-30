@@ -40,6 +40,7 @@ public class Translator {
 	}
 
 	public static void main(String[] args) {
-		Translator translator 
+		String fileName = args[0];
+		Translator translator = new Translator(fileName);
 	}
 }
