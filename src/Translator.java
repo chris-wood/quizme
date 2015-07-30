@@ -1,4 +1,7 @@
 import java.net.URL;
+import javax.net.ssl.*;
+import java.io.*;
+import java.util.Scanner;
 
 public class Translator {
 
@@ -6,8 +9,8 @@ public class Translator {
 		"translate?key=APIKEY&";
 	private String translateUrl;
 
-	private enum Language {
-		Language_English, Language_French
+	public enum Language {
+		LanguageEnglish, LanguageFrench
 	};
 	private String[] languageStrings = {"en", "fr"};
 	
@@ -17,7 +20,7 @@ public class Translator {
 		translateUrl = templateTranslateUrl.replace("APIKEY", key);
 	}
 
-	private String buildTranslateQuery(Langauge from, Language to, String phrase) {
+	private String buildTranslateQuery(Language from, Language to, String phrase) {
 		StringBuilder builder = new StringBuilder(translateUrl);
 		builder.append("lang=" + languageStrings[from.ordinal()] + "-" + languageStrings[to.ordinal()]);
 		builder.append("&text=");
@@ -25,22 +28,42 @@ public class Translator {
 		String tokenizedPhrase = phrase.replace(" ", "+");
 		builder.append(tokenizedPhrase);
 
-		return builder.toString()
+		return builder.toString();
 	}
 
-	public String translate(Langauge from, Language to, String phrase) {
+	public String translate(Language from, Language to, String phrase) throws Exception {
 		String query = buildTranslateQuery(from, to, phrase);
 		
 		// TODO: exceptions
 		URL url = new URL(query);
 		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-		String ret = con.getContent();
 
-		return ret;
+		// String ret = con.getContent().toString();
+		InputStreamReader in = new InputStreamReader((InputStream) con.getContent());
+		BufferedReader buff = new BufferedReader(in);
+		StringBuilder builder = new StringBuilder();
+		String line;
+		do {
+			line = buff.readLine();
+			if (line != null) {
+				builder.append(line + "\n");
+			}
+		} while (line != null);
+
+		return builder.toString();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		String fileName = args[0];
-		Translator translator = new Translator(fileName);
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
+		String key = reader.readLine();
+		reader.close();
+		Translator translator = new Translator(key);
+
+		System.out.print("Enter phrase: ");
+		Scanner sin = new Scanner(System.in);
+		String phrase = sin.nextLine();
+		String output = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
+		System.out.println(output);
 	}
 }
