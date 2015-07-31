@@ -67,8 +67,11 @@ public class Translator {
 		Prompt prompt = new Prompt(">", System.in, System.out);
 		do {		
 			String phrase = prompt.getNextLine();
-			String output = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
-			System.out.println(output);
-		} while (!prompt.isDone());	
+			if (phrase.length() > 0) {
+				String output = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
+				System.out.println(output);
+				System.out.flush();
+			}
+		} while (!prompt.isDone());
 	}
 }
