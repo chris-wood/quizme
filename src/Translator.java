@@ -34,7 +34,6 @@ public class Translator {
 	public String translate(Language from, Language to, String phrase) throws Exception {
 		String query = buildTranslateQuery(from, to, phrase);
 		
-		// TODO: exceptions
 		URL url = new URL(query);
 		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 
@@ -54,6 +53,11 @@ public class Translator {
 	}
 
 	public static void main(String[] args) throws Exception {
+		if (args.length != 1) {
+			System.err.println("usage: java Translator <apikey>");
+			System.exit(-1);
+		}
+
 		String fileName = args[0];
 		BufferedReader reader = new BufferedReader(new FileReader(fileName));
 		String key = reader.readLine();

@@ -15,7 +15,7 @@ public class Prompt {
 	}
 
 	public boolean isDone() {
-		return input.hasNextLine();
+		return input.hasNext();
 	}
 
 	public String getNextLine() {
