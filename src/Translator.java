@@ -60,10 +60,11 @@ public class Translator {
 		reader.close();
 		Translator translator = new Translator(key);
 
-		System.out.print("Enter phrase: ");
-		Scanner sin = new Scanner(System.in);
-		String phrase = sin.nextLine();
-		String output = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
-		System.out.println(output);
+		Prompt prompt = new Prompt(">", System.in, System.out);
+		do {		
+			String phrase = prompt.getNextLine();
+			String output = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
+			System.out.println(output);
+		} while (!prompt.isDone());	
 	}
 }
