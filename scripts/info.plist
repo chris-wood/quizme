@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>quizme.app</string>
+        <key>Program</key>
+        <string>/Users/caw/Projects/quizme/src/translator.sh</string>
+        <key>ThrottleInterval</key>
+        <integer>10</integer> <!-- the time between runs --> 
+    </dict>
+</plist>
+
+<!-- http://launchd.info/ --> 
