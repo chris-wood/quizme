@@ -43,8 +43,14 @@ public class WordDictionary {
 
 	private void setAdjectivesFromFile(String adjFile) {
 		List<String> contents = getFileLines(adjFile);
-		for (String s : contents) {
-			System.out.println(s);
+		for (String line : contents) {
+			String[] adjLine = line.split(" ");
+			if (!adjectives.contains(adjLine[0])) {	
+				adjectives.add(adjLine[0]);
+			}
+			if (!adjectives.contains(adjLine[1])) {	
+				adjectives.add(adjLine[1]);
+			}
 		}
 	}
 
@@ -52,22 +58,28 @@ public class WordDictionary {
 		List<String> contents = getFileLines(nounFile);
 		for (String line : contents) {
 			String[] nouns = line.split(" ");
-			pluralNouns.append(nouns[0]);
-			singularNouns.append(nouns[1]);
+
+			pluralNouns.add(nouns[0]);
+			if (!singularNouns.contains(nouns[1])) {
+				singularNouns.add(nouns[1]);
+			}
 		}
 	}
 
 	private void setVerbsFromFile(String verbFile) {
 		List<String> contents = getFileLines(verbFile);
-		for (String s : contents) {
-			System.out.println(s);
+		for (String line : contents) {
+			String[] verbLine = line.split(" ");
+			if (!verbs.contains(verbLine[1])) {	
+				verbs.add(verbLine[1]);
+			}
 		}
 	}
 
 	public static WordDictionary createFromFiles(String adjFile, String advFile, 
 		String nounFile, String verbFile) {
 		WordDictionary dictionary = new WordDictionary();
-		dictionary.setAdverbsFromFile(advFile);
+		// dictionary.setAdverbsFromFile(advFile);
 		dictionary.setAdjectivesFromFile(adjFile);
 		dictionary.setNounsFromFile(nounFile);
 		dictionary.setVerbsFromFile(verbFile);
