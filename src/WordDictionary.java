@@ -1,6 +1,10 @@
 import java.util.List;
 import java.util.ArrayList;
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.FileSystems;
+import java.nio.charset.StandardCharsets;
 
 public class WordDictionary {
 
@@ -19,7 +23,7 @@ public class WordDictionary {
 	private List<String> getFileLines(String file) {
 		try {
 			Path path = FileSystems.getDefault().getPath(file);
-			List<String> lines = File.readAllLines(path, StandardCharsets.UTF_8);
+			List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 			return lines;
 		} catch (IOException ex) {
 			System.err.println(ex);
@@ -30,21 +34,33 @@ public class WordDictionary {
 
 	private void setAdverbsFromFile(String advFile) {
 		List<String> contents = getFileLines(advFile);
+		for (String s : contents) {
+			System.out.println(s);
+		}
 	}
 
 	private void setAdjectivesFromFile(String adjFile) {
 		List<String> contents = getFileLines(adjFile);
+		for (String s : contents) {
+			System.out.println(s);
+		}
 	}
 
 	private void setNounsFromFile(String nounFile) {
 		List<String> contents = getFileLines(nounFile);
+		for (String s : contents) {
+			System.out.println(s);
+		}
 	}
 
 	private void setVerbsFromFile(String verbFile) {
 		List<String> contents = getFileLines(verbFile);
+		for (String s : contents) {
+			System.out.println(s);
+		}
 	}
 
-	public static createFromDictionary(String adjFile, String advFile, 
+	public static WordDictionary createFromFiles(String adjFile, String advFile, 
 		String nounFile, String verbFile) {
 		WordDictionary dictionary = new WordDictionary();
 		dictionary.setAdverbsFromFile(advFile);
@@ -52,5 +68,10 @@ public class WordDictionary {
 		dictionary.setNounsFromFile(nounFile);
 		dictionary.setVerbsFromFile(verbFile);
 		return dictionary;
+	}
+
+	public static void main(String[] args) {
+		WordDictionary dictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", "../db/noun.exc", "../db/verb.exc");
+		// TOOD
 	}
 }
