@@ -10,13 +10,15 @@ public class WordDictionary {
 
 	private List<String> adjectives;
 	private List<String> adverbs;
-	private List<String> nouns;
+	private List<String> singularNouns;
+	private List<String> pluralNouns;
 	private List<String> verbs;
 
 	private WordDictionary() {
 		adjectives = new ArrayList<String>();
 		adverbs = new ArrayList<String>();
-		nouns = new ArrayList<String>();
+		singularNouns = new ArrayList<String>();
+		pluralNouns = new ArrayList<String>();
 		verbs = new ArrayList<String>();
 	}
 
@@ -48,8 +50,10 @@ public class WordDictionary {
 
 	private void setNounsFromFile(String nounFile) {
 		List<String> contents = getFileLines(nounFile);
-		for (String s : contents) {
-			System.out.println(s);
+		for (String line : contents) {
+			String[] nouns = line.split(" ");
+			pluralNouns.append(nouns[0]);
+			singularNouns.append(nouns[1]);
 		}
 	}
 
