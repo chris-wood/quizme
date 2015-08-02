@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
 
 public class WordDictionary {
 
@@ -15,20 +16,32 @@ public class WordDictionary {
 		verbs = new ArrayList<String>();
 	}
 
-	private void setAdverbsFromFile(String advFile) {
+	private List<String> getFileLines(String file) {
+		try {
+			Path path = FileSystems.getDefault().getPath(file);
+			List<String> lines = File.readAllLines(path, StandardCharsets.UTF_8);
+			return lines;
+		} catch (IOException ex) {
+			System.err.println(ex);
+			ex.printStackTrace();
+		}
+		return null;
+	}
 
+	private void setAdverbsFromFile(String advFile) {
+		List<String> contents = getFileLines(advFile);
 	}
 
 	private void setAdjectivesFromFile(String adjFile) {
-
+		List<String> contents = getFileLines(adjFile);
 	}
 
 	private void setNounsFromFile(String nounFile) {
-
+		List<String> contents = getFileLines(nounFile);
 	}
 
 	private void setVerbsFromFile(String verbFile) {
-
+		List<String> contents = getFileLines(verbFile);
 	}
 
 	public static createFromDictionary(String adjFile, String advFile, 
