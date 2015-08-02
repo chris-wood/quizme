@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class WordDictionary {
 		singularNouns = new ArrayList<String>();
 		pluralNouns = new ArrayList<String>();
 		verbs = new ArrayList<String>();
+		random = new SecureRandom();
 	}
 
 	private List<String> getFileLines(String file) {
@@ -106,6 +108,14 @@ public class WordDictionary {
 	public static void main(String[] args) {
 		WordDictionary dictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", "../db/noun.exc", "../db/verb.exc");
 		
-		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter any key to get more...");
+		while (scanner.hasNext()) {
+			scanner.nextLine(); // discard
+			System.out.println("Noun: " + dictionary.getRandomNoun());
+			System.out.println("Verb: " + dictionary.getRandomVerb());
+			System.out.println("Adj.: " + dictionary.getRandomAdjective());
+			System.out.println("Enter any key to get more...");
+		}
 	}
 }
