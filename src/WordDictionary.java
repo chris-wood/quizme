@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.FileSystems;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 public class WordDictionary {
 
@@ -13,6 +14,7 @@ public class WordDictionary {
 	private List<String> singularNouns;
 	private List<String> pluralNouns;
 	private List<String> verbs;
+	private SecureRandom random;
 
 	private WordDictionary() {
 		adjectives = new ArrayList<String>();
@@ -58,7 +60,6 @@ public class WordDictionary {
 		List<String> contents = getFileLines(nounFile);
 		for (String line : contents) {
 			String[] nouns = line.split(" ");
-
 			pluralNouns.add(nouns[0]);
 			if (!singularNouns.contains(nouns[1])) {
 				singularNouns.add(nouns[1]);
@@ -86,8 +87,25 @@ public class WordDictionary {
 		return dictionary;
 	}
 
+	public String getRandomNoun() {
+		if (random.nextBoolean()) {
+			return singularNouns.get(random.nextInt(singularNouns.size()));
+		} else {
+			return pluralNouns.get(random.nextInt(pluralNouns.size()));
+		}
+	}
+
+	public String getRandomVerb() {
+		return verbs.get(random.nextInt(verbs.size()));
+	}
+
+	public String getRandomAdjective() {
+		return adjectives.get(random.nextInt(adjectives.size()));
+	}
+
 	public static void main(String[] args) {
 		WordDictionary dictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", "../db/noun.exc", "../db/verb.exc");
-		// TOOD
+		
+		
 	}
 }
