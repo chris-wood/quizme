@@ -9,6 +9,7 @@ public class Translator {
 		"translate?key=APIKEY&";
 	private String translateUrl;
 
+	// TODO: pull out to a separate file
 	public enum Language {
 		LanguageEnglish, LanguageFrench
 	};
@@ -30,11 +31,6 @@ public class Translator {
 
 		return builder.toString();
 	}
-
-	// URL url = new URL(serviceURL);
-	// HTTPUrlConnection urlConnection = url.openConnection();
-	// urLConnection.setRequestProperty("KEY", "value");
-	// urlConnection.setDoInput(true); // same for setDoOutput(true);
 
 	public String translate(Language from, Language to, String phrase) throws Exception {
 		String query = buildTranslateQuery(from, to, phrase);
@@ -58,16 +54,21 @@ public class Translator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		if (args.length != 1) {
-			System.err.println("usage: java Translator <apikey>");
+		if (args.length != 2) {
+			System.err.println("usage: java Translator <translator-apikey> <words-apikey>");
 			System.exit(-1);
 		}
 
 		String fileName = args[0];
 		BufferedReader reader = new BufferedReader(new FileReader(fileName));
-		String key = reader.readLine();
+		String translatorApiKey = reader.readLine();
 		reader.close();
-		Translator translator = new Translator(key);
+		Translator translator = new Translator(translatorApiKey);
+
+		String wordsApiFileName = args[1];
+		BufferedReader wordsApiReader = new BufferedReader(new FileReader(wordsApiFileName));
+		String wordsApiKey = wordsApiReader.readLine();
+		SentenceGenerator sentenceGenerator = new SentenceGenerator(wordsApiKey);
 
 		Prompt prompt = new Prompt(">", System.in, System.out);
 		do {		
