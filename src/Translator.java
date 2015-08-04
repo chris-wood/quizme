@@ -31,6 +31,11 @@ public class Translator {
 		return builder.toString();
 	}
 
+	// URL url = new URL(serviceURL);
+	// HTTPUrlConnection urlConnection = url.openConnection();
+	// urLConnection.setRequestProperty("KEY", "value");
+	// urlConnection.setDoInput(true); // same for setDoOutput(true);
+
 	public String translate(Language from, Language to, String phrase) throws Exception {
 		String query = buildTranslateQuery(from, to, phrase);
 		
