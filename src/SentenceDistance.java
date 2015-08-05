@@ -9,12 +9,12 @@ public class SentenceDistance {
         } else if (i == -1) {
             return j;
         } else {
-            if (a[j] == b[i]) {
-                return levenschteinDistance(a, b, i - 1, j - 1);
+            if (a.charAt(j) == b.charAt(i)) {
+                return levenshteinDistance(a, b, i - 1, j - 1);
             } else {
-                int delDistance = levenschteinDistance(a, b, i - 1, j) + 1; // delete
-                int insDistance = levenschteinDistance(a, b, i, j - 1) + 1; // insert
-                int swapDistance = levenschteinDistance(a, b, i - 1, j - 1) + 1; // substitute
+                int delDistance = levenshteinDistance(a, b, i - 1, j) + 1; // delete
+                int insDistance = levenshteinDistance(a, b, i, j - 1) + 1; // insert
+                int swapDistance = levenshteinDistance(a, b, i - 1, j - 1) + 1; // substitute
                 
                 int min = delDistance < insDistance ? delDistance : insDistance;
                 min = min < swapDistance ? min : swapDistance;
@@ -24,7 +24,7 @@ public class SentenceDistance {
     }    
 
     public int computeDistance(String a, String b) {
-        return levenschteinDistance(a, b, b.length(), a.length());
+        return levenshteinDistance(a, b, b.length() - 1, a.length() - 1);
     }
 
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class SentenceDistance {
 
         SentenceDistance distancer = new SentenceDistance();
         int distance = distancer.computeDistance(word1, word2);
-        System.out.println("Distance between " + a + " and " + " b = " + distance);
+        System.out.println("Distance between " + word1 + " and " + " " +  word2 + "  = " + distance);
     }
 }
 
