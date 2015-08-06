@@ -10,7 +10,7 @@ public class Translator {
 	private String translateUrl;
 
 	// TODO: pull out to a separate file
-	
+
 	// lang=en-fr&text=To+be,+or+not+to+be%3F&text=That+is+the+question.";
 
 	public Translator(String key) {
@@ -30,7 +30,7 @@ public class Translator {
 
 	public String translate(Language from, Language to, String phrase) throws Exception {
 		String query = buildTranslateQuery(from, to, phrase);
-		
+
 		URL url = new URL(query);
 		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 
@@ -48,8 +48,6 @@ public class Translator {
 
 		return builder.toString();
 	}
-
-
 
 	public static void main(String[] args) throws Exception {
 		if (args.length != 2) {
@@ -72,7 +70,7 @@ public class Translator {
 
 		String sentence = sentenceGenerator.createRandomSentence();
 		Prompt prompt = new Prompt("Translate the following: " + sentence + "\n>", System.in, System.out);
-		do {		
+		do {
 			String phrase = prompt.getNextLine();
 			if (phrase.length() > 0) {
 				String output = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
