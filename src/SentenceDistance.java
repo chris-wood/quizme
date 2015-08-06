@@ -4,7 +4,32 @@ public class SentenceDistance {
     }
 
     private int levenshteinDistanceDP(String a, String b) {
-        return 0;    
+        int[][] m = new int[a.length() + 1][b.length() + 1];
+    
+        m[0][0] = 0;
+        for (int i = 0; i < a.length() + 1; i++) {
+            m[i][0] = i;
+        }
+        for (int j = 0; j < b.length() + 1; j++) {
+            m[0][j] = j;
+        }
+
+        for (int i = 1; i < a.length() + 1; i++) {
+            for (int j = 1; j < b.length() + 1; j++) {
+                if (a.charAt(i - 1) == b.charAt(j - 1)) {
+                    m[i][j] = m[i - 1][j - 1];
+                } else { 
+                    int d1 = m[i - 1][j] + 1; // insert
+                    int d2 = m[i][j - 1] + 1; // delete
+                    int d3 = m[i - 1][j - 1] + 1; // sub.
+                    int min = d1 < d2 ? d1 : d2;
+                    min = min < d3 ? min : d3;
+                    m[i][j] = min;
+                }
+            }
+        }
+    
+        return m[a.length()][b.length()];
     }
 
 //// The Levenshtein distance recurrence relation
@@ -36,7 +61,8 @@ public class SentenceDistance {
     }    
 
     public int computeDistance(String a, String b) {
-        return levenshteinDistance(a, b, b.length() - 1, a.length() - 1);
+//        return levenshteinDistance(a, b, b.length() - 1, a.length() - 1);
+        return levenshteinDistanceDP(a, b);
     }
 
     public static void main(String[] args) {
