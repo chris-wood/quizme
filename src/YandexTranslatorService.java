@@ -4,6 +4,7 @@ public class YandexTranslatorService extends TranslatorService {
 
 	private String[] languageStrings = {"en", "fr"};
 
+	// http://www.oracle.com/technetwork/articles/java/json-1973242.html
 	public String translate(Language from, Language to, String phrase) throws Exception {
 		String query = buildTranslateQuery(from, to, phrase);
 
@@ -23,5 +24,3 @@ public class YandexTranslatorService extends TranslatorService {
 		return languageStrings[lang.ordinal()];
 	}
 }
-
-// http://www.oracle.com/technetwork/articles/java/json-1973242.html
