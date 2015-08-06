@@ -5,9 +5,9 @@ public class SentenceDistance {
 
     private int levenshteinDistance(String a, String b, int i, int j) {
         if (j == -1) {
-            return i;
+            return i + 1;
         } else if (i == -1) {
-            return j;
+            return j + 1;
         } else {
             if (a.charAt(j) == b.charAt(i)) {
                 return levenshteinDistance(a, b, i - 1, j - 1);
@@ -33,7 +33,8 @@ public class SentenceDistance {
 
         SentenceDistance distancer = new SentenceDistance();
         int distance = distancer.computeDistance(word1, word2);
-        System.out.println("Distance between " + word1 + " and " + " " +  word2 + "  = " + distance);
+
+        System.out.println("Distance between '" + word1 + "' and '" + word2 + "' = " + distance);
     }
 }
 
