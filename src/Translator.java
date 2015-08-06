@@ -10,10 +10,6 @@ public class Translator {
 	private String translateUrl;
 
 	// TODO: pull out to a separate file
-	public enum Language {
-		LanguageEnglish, LanguageFrench
-	};
-	private String[] languageStrings = {"en", "fr"};
 	
 	// lang=en-fr&text=To+be,+or+not+to+be%3F&text=That+is+the+question.";
 

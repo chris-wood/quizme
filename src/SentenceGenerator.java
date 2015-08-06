@@ -10,7 +10,7 @@ public class SentenceGenerator {
 
 	public SentenceGenerator(String key) {
 		// TODO: create the word dictionary from the files, or using the remote service
-		dictionary = new WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", 
+		dictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", 
             "../db/noun.exc", "../db/verb.exc");
 	}
 
