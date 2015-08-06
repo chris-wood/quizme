@@ -53,6 +53,8 @@ public class Translator {
 		return builder.toString();
 	}
 
+
+
 	public static void main(String[] args) throws Exception {
 		if (args.length != 2) {
 			System.err.println("usage: java Translator <translator-apikey> <words-apikey>");
@@ -70,11 +72,15 @@ public class Translator {
 		String wordsApiKey = wordsApiReader.readLine();
 		SentenceGenerator sentenceGenerator = new SentenceGenerator(wordsApiKey);
 
-		Prompt prompt = new Prompt(">", System.in, System.out);
+		SentenceDistance distancer = new SentenceDistance();
+
+		String sentence = sentenceGenerator.createRandomSentence();
+		Prompt prompt = new Prompt("Translate the following: " + sentence + "\n>", System.in, System.out);
 		do {		
 			String phrase = prompt.getNextLine();
 			if (phrase.length() > 0) {
 				String output = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
+				// TODO: parse JSON output and run it through the sentence distance generator
 				System.out.println(output);
 				System.out.flush();
 			}
