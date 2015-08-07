@@ -32,13 +32,13 @@ public class SentenceDistance {
         return m[a.length()][b.length()];
     }
 
-//// The Levenshtein distance recurrence relation
-// d('', '') = 0               -- '' = empty string
-// d(s, '')  = d('', s) = |s|  -- i.e. length of s
-//d(s1+ch1, s2+ch2)
-//   = min( d(s1, s2) + if ch1=ch2 then 0 else 1 fi,
-//          d(s1+ch1, s2) + 1,
-//          d(s1, s2+ch2) + 1 )
+    //// The Levenshtein distance recurrence relation
+    // d('', '') = 0               -- '' = empty string
+    // d(s, '')  = d('', s) = |s|  -- i.e. length of s
+    //d(s1+ch1, s2+ch2)
+    //   = min( d(s1, s2) + if ch1=ch2 then 0 else 1 fi,
+    //          d(s1+ch1, s2) + 1,
+    //          d(s1, s2+ch2) + 1 )
 
     private int levenshteinDistance(String a, String b, int i, int j) {
         if (j == -1) {
@@ -61,7 +61,7 @@ public class SentenceDistance {
     }    
 
     public int computeDistance(String a, String b) {
-//        return levenshteinDistance(a, b, b.length() - 1, a.length() - 1);
+        // return levenshteinDistance(a, b, b.length() - 1, a.length() - 1);
         return levenshteinDistanceDP(a, b);
     }
 
