@@ -28,7 +28,7 @@ public class SentenceGenerator {
 		return sentence;
 	}
 
-	public static void main(String[] args) {
+	public static void test(String[] args) {
         WordDictionary dictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", 
             "../db/noun.exc", "../db/verb.exc");
 

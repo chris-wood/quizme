@@ -1,5 +1,3 @@
-import java.net.URL;
-import javax.net.ssl.*;
 import java.io.*;
 import java.util.Scanner;
 
@@ -35,7 +33,7 @@ public class Translator {
 		SentenceDistance distancer = new SentenceDistance();
 
 		String historyFile = args[2];
-		QuizHistory history = new QuizHistory(historyFile);
+		// QuizHistory history = new QuizHistory(historyFile);
 
 		String sentence = sentenceGenerator.createRandomSentence();
 		Prompt prompt = new Prompt("Translate the following: " + sentence + "\n>", System.in, System.out);

@@ -1,4 +1,9 @@
 import javax.json.*;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.net.URL;
+import javax.net.ssl.*;
 
 public class YandexTranslatorService extends TranslatorService {
 
@@ -54,9 +59,9 @@ public class YandexTranslatorService extends TranslatorService {
 		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 
 		InputStreamReader in = new InputStreamReader((InputStream) con.getContent());
-		InputStream ins = con.getContent();
+		InputStream ins = (InputStream) con.getContent();
 		JsonReader reader = Json.createReader(ins);
-		JsonObject root = rdr.readObject();
+		JsonObject root = reader.readObject();
 		String translation = root.getString("text");
 
 		return translation;

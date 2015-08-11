@@ -15,23 +15,35 @@ import org.tmatesoft.sqljet.core.table.SqlJetDb;
 public class QuizHistory {
     // PURPOSE: store a database of results, hard words and phrases, etc.
     // TODO: use sqlite to store this information?
+    // TODO: wrap SqlJetException in HistoryStoreException (so we can use different databases behind the scenes if needed)
 
     private String fileName;
 
     public QuizHistory(String fileName) {
     	this.fileName = fileName;
-        init(fileName);
+        try {
+            init(fileName);
+        } catch (Exception ex) {
+
+        }
     }
 
     private SqlJetDb openDatabase(String filename) {
-        File dbFile = new File(filename);
-        if (!dbFile.exists()) {
-            init(filename); 
+        SqlJetDb db = null;
+        try {
+            File dbFile = new File(filename);
+            if (!dbFile.exists()) {
+                init(filename); 
+            }  
+            db = SqlJetDb.open(dbFile, true);  
+        } catch (Exception e) {
+            // pass
         }
-        return SqlJetDb.open(dbFile, true);
+        
+        return db;
     }
 
-    private void init(String fileName) {
+    private void init(String fileName) throws Exception {
         File dbFile = new File(fileName);
         if (!dbFile.exists()) {
             SqlJetDb db = SqlJetDb.open(dbFile, true);
@@ -51,7 +63,7 @@ public class QuizHistory {
         }
     }
 
-    private void createTablesAndIndices(SqlJetDb db) {
+    private void createTablesAndIndices(SqlJetDb db) throws Exception {
         String createLanguageTable = "CREATE TABLE languages (language_abbr TEXT NOT NULL PRIMARY KEY, language_text TEXT NOT NULL)";
         String createWordsTable = "CREATE TABLE words (word TEXT NOT NULL PRIMARY KEY, language TEXT REFERENCES languages(language_abbr), proficiency INTEGER NOT NULL)";
         String createQuestionTable = "CREATE TABLE questions (question_id INTEGER NOT NULL PRIMARY KEY, phrase_input TEXT NOT NULL, phrase_output TEXT NOT NULL, distance INTEGER NOT NULL)";
