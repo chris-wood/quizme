@@ -32,13 +32,15 @@ public class Translator {
 
 		SentenceDistance distancer = new SentenceDistance();
 
+		// TODO: fix the history file, after getting basic diffs
 		String historyFile = args[2];
 		// QuizHistory history = new QuizHistory(historyFile);
 
 		String sentence = sentenceGenerator.createRandomSentence();
-		Prompt prompt = new Prompt("Translate the following: " + sentence + "\n>", System.in, System.out);
+		Prompt prompt = new Prompt("Translate the following:", ">", System.in, System.out);
 		do {
-			String phrase = prompt.getNextLine();
+			sentence = sentenceGenerator.createRandomSentence();
+			String phrase = prompt.getNextLine(sentence);
 			if (phrase.length() > 0) {
 				String translatedPhrase = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
 				
@@ -46,8 +48,6 @@ public class Translator {
 
 				int editDistance = distancer.computeDistance(phrase, translatedPhrase);
 				System.out.println("Edit distance: " + editDistance);
-
-				System.out.flush();
 			}
 		} while (!prompt.isDone());
 	}

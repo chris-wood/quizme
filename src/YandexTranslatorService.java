@@ -62,7 +62,8 @@ public class YandexTranslatorService extends TranslatorService {
 		InputStream ins = (InputStream) con.getContent();
 		JsonReader reader = Json.createReader(ins);
 		JsonObject root = reader.readObject();
-		String translation = root.getString("text");
+		JsonArray translations = root.getJsonArray("text");
+		String translation = translations.getString(0);
 
 		return translation;
 	}
