@@ -36,10 +36,9 @@ public class Translator {
 		String historyFile = args[2];
 		// QuizHistory history = new QuizHistory(historyFile);
 
-		String sentence = sentenceGenerator.createRandomSentence();
 		Prompt prompt = new Prompt("Translate the following:", ">", System.in, System.out);
 		do {
-			sentence = sentenceGenerator.createRandomSentence();
+			String sentence = sentenceGenerator.createRandomNoun();
 			String phrase = prompt.getNextLine(sentence);
 			if (phrase.length() > 0) {
 				String translatedPhrase = translator.translate(Language.LanguageEnglish, Language.LanguageFrench, phrase);
