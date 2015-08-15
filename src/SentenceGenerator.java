@@ -23,13 +23,39 @@ public class SentenceGenerator {
 		Realiser realiser = new Realiser(lexicon);
 
 		SPhraseSpec p = nlgFactory.createClause();
-		p.setSubject("the " + dictionary.getRandomNoun());
-		p.setVerb(dictionary.getRandomVerb());
-		p.setObject("the " + dictionary.getRandomNoun());
+		p.setSubject("the " + hardDictionary.getRandomNoun());
+		p.setVerb(hardDictionary.getRandomVerb());
+		p.setObject("the " + hardDictionary.getRandomNoun());
 
 		String sentence = realiser.realiseSentence(p);
 		return sentence;
 	}
+
+	public String createRandomEasySentence() {
+		Lexicon lexicon = Lexicon.getDefaultLexicon();
+		NLGFactory nlgFactory = new NLGFactory(lexicon);
+		Realiser realiser = new Realiser(lexicon);
+
+		SPhraseSpec p = nlgFactory.createClause();
+		p.setSubject("the " + easyDictionary.getRandomNoun());
+		p.setVerb(easyDictionary.getRandomVerb());
+		p.setObject("the " + easyDictionary.getRandomNoun());
+
+		String sentence = realiser.realiseSentence(p);
+		return sentence;
+	}
+
+    public String createRandomNoun() {
+		Lexicon lexicon = Lexicon.getDefaultLexicon();
+		NLGFactory nlgFactory = new NLGFactory(lexicon);
+		Realiser realiser = new Realiser(lexicon);
+
+		SPhraseSpec p = nlgFactory.createClause();
+		p.setObject("the " + easyDictionary.getRandomNoun());
+
+		String sentence = realiser.realiseSentence(p);
+		return sentence;
+    }
 
 	public static void test(String[] args) {
         WordDictionary dictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", 
