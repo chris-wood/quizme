@@ -6,15 +6,18 @@ import simplenlg.features.*;
 
 public class SentenceGenerator {
 
-	private WordDictionary dictionary;
+	private WordDictionary hardDictionary;
+    private WordDictionary easyDictionary;
 
 	public SentenceGenerator(String key) {
 		// TODO: create the word dictionary from the files, or using the remote service
-		dictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", 
+		hardDictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc", 
             "../db/noun.exc", "../db/verb.exc");
+        easyDictionary = WordDictionary.createFromFiles("../db/adj.exc", "../db/adv.exc",
+            "../db/easynoun.exc", "../db/easyverb.exc");
 	}
 
-	public String createRandomSentence() {
+	public String createRandomHardSentence() {
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
 		NLGFactory nlgFactory = new NLGFactory(lexicon);
 		Realiser realiser = new Realiser(lexicon);
